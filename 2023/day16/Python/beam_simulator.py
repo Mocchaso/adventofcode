@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
 from functools import lru_cache
+import sys
 
 from map import Map, MapElement, Direction
+
+sys.setrecursionlimit(5000)
 
 
 class Simulator(ABC):
