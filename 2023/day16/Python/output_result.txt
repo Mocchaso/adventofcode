@@ -38,7 +38,7 @@ map:
 ..//.|....
 map size = (10, 10)
 recursion_result2: 46
-Process time: 00h 00m 00.001s
+Process time: 00h 00m 00.002s
 
 Stack
 map:
@@ -172,7 +172,7 @@ map:
 ......./...\../..........-.................-.........................-........../...-......\..................
 map size = (110, 110)
 recursion_result3: 7562
-Process time: 00h 00m 16.799s
+Process time: 00h 00m 17.886s
 
 Stack
 map:
@@ -288,7 +288,7 @@ map:
 ......./...\../..........-.................-.........................-........../...-......\..................
 map size = (110, 110)
 stack_result3: 7562
-Process time: 00h 00m 01.051s
+Process time: 00h 00m 01.209s
 
 
 - Question 2
@@ -297,12 +297,15 @@ Process time: 00h 00m 01.051s
 
 Recursion
 max passed tiles count (recursion): 51
-Process time: 00h 00m 00.068s
+Process time: 00h 00m 00.087s
 
 Stack
 max passed tiles count (stack): 51
-Process time: 00h 00m 00.034s
+Process time: 00h 00m 00.048s
 
 * Map 3 (Main)
 
-Recursion
+Stack
+max passed tiles count (stack): 7838
+Process time: 08h 41m 35.237s
+
