@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import sys
+from tqdm import tqdm
 
 from map import Map, MapElement, Direction
 
@@ -45,10 +46,12 @@ class Simulator(ABC):
         self.map_obj.passed_tiles.clear()
         
         passed_tiles_results = {}
-        for (x, y, direction) in self.map_obj.shotting_beam_patterns:
-            passed_tiles_results[(x, y, direction)] = self.simulate(x, y, direction)
-            # 次のパターンのシミュレーションを行う前に、履歴をリセット
-            self.map_obj.passed_tiles.clear()
+        with tqdm(self.map_obj.shotting_beam_patterns,
+                  desc="Processing shotting_beam_patterns") as progress_bar:
+            for (x, y, direction) in progress_bar:
+                passed_tiles_results[(x, y, direction)] = self.simulate(x, y, direction)
+                # 次のパターンのシミュレーションを行う前に、履歴をリセット
+                self.map_obj.passed_tiles.clear()
         
         return max(passed_tiles_results.values())
 
