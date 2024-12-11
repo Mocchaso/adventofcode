@@ -38,6 +38,7 @@ if __name__  == "__main__":
     print(f"recursion_result2: {recursion_result2}")
     print()
     # スタック
+    print("Stack")
     stack_simulator2 = StackSimulator(map_info2_path)
     stack_result2 = stack_simulator2.simulate(0, 0, Direction.RIGHT)
     print(f"stack_result2: {stack_result2}")
@@ -53,6 +54,7 @@ if __name__  == "__main__":
     print(f"recursion_result3: {recursion_result3}")
     print()
     # スタック
+    print("Stack")
     stack_simulator3 = StackSimulator(map_info3_path)
     stack_result3 = stack_simulator3.simulate(0, 0, Direction.RIGHT)
     print(f"stack_result3: {stack_result3}")
