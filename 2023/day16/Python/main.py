@@ -108,13 +108,13 @@ if __name__  == "__main__":
     # マップ3: 7793が正解。（メインの問題）
     print("* Map 3 (Main)")
     print()
-    # # 再帰
-    # print("Recursion")
-    # start_time = time.perf_counter()
-    # print(f"max passed tiles count (recursion): {recursion_simulator3.calculate_max_passed_tiles_count()}")
-    # end_time = time.perf_counter()
-    # print(f"Process time: {getFormattedElapsedTimeInfo(start_time, end_time)}")
-    # print()
+    # 再帰
+    print("Recursion")
+    start_time = time.perf_counter()
+    print(f"max passed tiles count (recursion): {recursion_simulator3.calculate_max_passed_tiles_count()}")
+    end_time = time.perf_counter()
+    print(f"Process time: {getFormattedElapsedTimeInfo(start_time, end_time)}")
+    print()
     # スタック
     print("Stack")
     start_time = time.perf_counter()

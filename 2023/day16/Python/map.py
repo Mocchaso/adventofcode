@@ -96,14 +96,18 @@ class Map:
         print(f"map size = ({self.x_size}, {self.y_size})")
 
         self.shotting_beam_patterns = []
-        # 2次元のマップ上から発射できる初期位置・方向のみ、パターンとして記録
+        # ビームを発射できる全パターンを記録しておく。
+        # ※四辺以外はマップの内部となるため発射不可。
         for x in range(self.x_size):
-            for y in range(self.y_size):
-                for direction in list(Direction):
-                    if not self.is_able_to_shot_beam(x, y, direction):
-                        continue
-
-                    self.shotting_beam_patterns.append((x, y, direction))
+            # 最上段の辺
+            self.shotting_beam_patterns.append((x, 0, Direction.DOWN))
+            # 最下段の辺
+            self.shotting_beam_patterns.append((x, self.y_size - 1, Direction.UP))
+        for y in range(self.y_size):
+            # 最左列の辺
+            self.shotting_beam_patterns.append((0, y, Direction.RIGHT))
+            # 最右列の辺
+            self.shotting_beam_patterns.append((self.x_size - 1, y, Direction.LEFT))
 
         self.passed_tiles = []
     
@@ -156,47 +160,3 @@ class Map:
         """
         # setにすることで、座標情報の重複を除去する。
         return len({(tile[0], tile[1]) for tile in self.passed_tiles})
-    
-    def is_able_to_shot_beam(self, x: int, y: int, direction: Direction) -> bool:
-        """指定した初期位置・方向からビームを発射可能かをチェックする。
-        """
-        if not self.is_in_map(x, y):
-            return False
-        
-        # 四隅
-        # 左上
-        if (x, y) == (0, 0):
-            if direction not in (Direction.RIGHT, Direction.DOWN):
-                return False
-        # 右上
-        if (x, y) == (self.x_size - 1, 0):
-            if direction not in (Direction.LEFT, Direction.DOWN):
-                return False
-        # 右下
-        if (x, y) == (self.x_size - 1, self.y_size - 1):
-            if direction not in (Direction.LEFT, Direction.UP):
-                return False
-        # 左下
-        if (x, y) == (0, self.y_size - 1):
-            if direction not in (Direction.RIGHT, Direction.UP):
-                return False
-        
-        # マップ（2次元）の、四隅以外の四辺
-        # 最上段の辺
-        if x in range(1, self.x_size - 1) and y == 0:
-            if direction != Direction.DOWN:
-                return False
-        # 最下段の辺
-        if x in range(1, self.x_size - 1) and y == self.y_size - 1:
-            if direction != Direction.UP:
-                return False
-        # 最左列の辺
-        if x == 0 and y in range(1, self.y_size - 1):
-            if direction != Direction.RIGHT:
-                return False
-        # 最右列の辺
-        if x == self.x_size - 1 and y in range(1, self.y_size - 1):
-            if direction != Direction.LEFT:
-                return False
-        
-        return True
