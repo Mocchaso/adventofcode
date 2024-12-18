@@ -2,7 +2,7 @@ import time
 
 from beam_simulator import RecursionSimulator, StackSimulator
 from map import Direction
-from time_util import getFormattedElapsedTimeInfo
+from common.time_util import getFormattedElapsedTimeInfo
 
 
 if __name__  == "__main__":
