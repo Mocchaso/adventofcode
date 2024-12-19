@@ -69,7 +69,7 @@ class Map:
     """マップの情報保持や操作のロジックをまとめたクラス。
 
     Attributes:
-        grid (list[str]): マップ情報を盤面としてリスト化したもの。
+        grid (list[list[str]]): マップ情報を盤面としてリスト化したもの。
         x_size (int): マップ情報のx方向のマス数。
         y_size (int): マップ情報のy方向のマス数。
         shotting_beam_patterns (list[tuple(int, int, Direction)]): マップ情報を基に、初期ビーム位置・方向のパターンを列挙するためのリスト。
