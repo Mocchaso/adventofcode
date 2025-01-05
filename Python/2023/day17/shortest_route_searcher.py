@@ -2,7 +2,8 @@ from abc import ABC, abstractmethod
 from collections import defaultdict
 import heapq
 
-from grid import Direction, Grid
+from common.constants import Direction
+from grid import Grid
 
 
 # 真後ろのパターン
