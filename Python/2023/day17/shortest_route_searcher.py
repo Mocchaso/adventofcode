@@ -63,6 +63,50 @@ class Searcher(ABC):
         """
         pass
 
+    def _trace_shortest_route(self) -> list[tuple[int, int]]:
+        """最短距離を記録したノードを、ゴールから辿る。
+        経路探索処理を行なってから利用する。
+        """
+        goal_node = (self.grid_obj.x_size - 1, self.grid_obj.y_size - 1)
+        # ゴールまで辿り着いたパターンの状態を列挙する。
+        goal_state_candidates = [
+            (cost, (goal_node, state[0], state[1])) # (cost, ((x, y), direction, straight_count))
+            for state, cost in self.shortest_distances_from_start_node[goal_node].items()
+        ]
+        if not goal_state_candidates:
+            # どの状態でもゴールに辿り着けなかった。
+            print("No path to goal found.")
+            return None
+        # 最終的なコスト損失が最小であるものを選ぶ。
+        best_goal_cost, best_goal_state = min(goal_state_candidates, key=lambda x: x[0])
+
+        shortest_route = []
+
+        current_node_state = best_goal_state
+        while current_node_state:
+            shortest_route.append(current_node_state[0]) # 座標情報だけで十分
+            if current_node_state not in self.shortest_route_record:
+                break
+            current_node_state = self.shortest_route_record[current_node_state]
+        
+        return shortest_route[::-1]
+
+    def _print_path_with_grid(self, path: list[tuple[int, int]]) -> None:
+        """グリッド上に経路を出力する。
+        """
+        path_set = set(path)
+
+        for y in range(self.grid_obj.y_size):
+            line = ""
+            for x in range(self.grid_obj.x_size):
+                current_node = (x, y)
+                if current_node in path_set:
+                    line += f"[{self.grid_obj.grid[y][x]}]"
+                else:
+                    line += f" {self.grid_obj.grid[y][x]} "
+            print(line)
+
+
 
 class DijkstraSearcher(Searcher):
     """ダイクストラ法で探索する。
@@ -144,48 +188,3 @@ class DijkstraSearcher(Searcher):
         # ゴールまでの経路が見つからなかった場合
         print("No path to goal found.")
         return float("inf")
-    
-    
-    def _trace_shortest_route(self) -> list[tuple[int, int]]:
-        """最短距離を記録したノードを、ゴールから辿る。
-        経路探索処理を行なってから利用する。
-        """
-        goal_node = (self.grid_obj.x_size - 1, self.grid_obj.y_size - 1)
-        # ゴールまで辿り着いたパターンの状態を列挙する。
-        goal_state_candidates = [
-            (cost, (goal_node, state[0], state[1])) # (cost, ((x, y), direction, straight_count))
-            for state, cost in self.shortest_distances_from_start_node[goal_node].items()
-        ]
-        if not goal_state_candidates:
-            # どの状態でもゴールに辿り着けなかった。
-            print("No path to goal found.")
-            return None
-        # 最終的なコスト損失が最小であるものを選ぶ。
-        best_goal_cost, best_goal_state = min(goal_state_candidates, key=lambda x: x[0])
-
-        shortest_route = []
-
-        current_node_state = best_goal_state
-        while current_node_state:
-            shortest_route.append(current_node_state[0]) # 座標情報だけで十分
-            if current_node_state not in self.shortest_route_record:
-                break
-            current_node_state = self.shortest_route_record[current_node_state]
-        
-        return shortest_route[::-1]
-    
-
-    def _print_path_with_grid(self, path: list[tuple[int, int]]) -> None:
-        """グリッド上に経路を出力する。
-        """
-        path_set = set(path)
-
-        for y in range(self.grid_obj.y_size):
-            line = ""
-            for x in range(self.grid_obj.x_size):
-                current_node = (x, y)
-                if current_node in path_set:
-                    line += f"[{self.grid_obj.grid[y][x]}]"
-                else:
-                    line += f" {self.grid_obj.grid[y][x]} "
-            print(line)
