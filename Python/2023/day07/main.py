@@ -8,8 +8,8 @@ if __name__ == "__main__":
     # hand_list = HandListParser.parse("./hand_list_question.txt")
     print()
 
-    hand_evaluator = HandEvaluatorImpl()
-    hand_ranker = HandRankerImpl(hand_evaluator)
+    hand_evaluator = HandEvaluatorImpl2()
+    hand_ranker = HandRankerImpl2(hand_evaluator)
 
     sorted_hand_list = hand_ranker.rank_hands(hand_list)
     total_bounty = 0

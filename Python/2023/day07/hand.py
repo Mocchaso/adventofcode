@@ -10,29 +10,32 @@ class Card(Enum):
             列挙子のパラメータの1個として情報を持たせる。
         strength (int): カードの強さ。値が大きいほど強い。
     """
-    TWO = ("2", 1)
-    THREE = ("3", 2)
-    FOUR = ("4", 3)
-    FIVE = ("5", 4)
-    SIX = ("6", 5)
-    SEVEN = ("7", 6)
-    EIGHT = ("8", 7)
-    NINE = ("9", 8)
-    T = ("T", 9)
-    JACK = ("J", 10)
-    QUEEN = ("Q", 11)
-    KING = ("K", 12)
-    ACE = ("A", 13)
+    TWO = ("2", 1, 2)
+    THREE = ("3", 2, 3)
+    FOUR = ("4", 3, 4)
+    FIVE = ("5", 4, 5)
+    SIX = ("6", 5, 6)
+    SEVEN = ("7", 6, 7)
+    EIGHT = ("8", 7, 8)
+    NINE = ("9", 8, 9)
+    T = ("T", 9, 10)
+    JACK = ("J", 10, 1)
+    QUEEN = ("Q", 11, 11)
+    KING = ("K", 12, 12)
+    ACE = ("A", 13, 13)
 
-    def __init__(self, category: str, strength: int) -> None:
+    def __init__(self, category: str, strength: int, strength2: int) -> None:
         """コンストラクタ。
 
         Args:
             category (str): カードの種類。
             strength (int): カードの強さ。値が大きいほど強い。
+            strength2 (int): 問題2でのカードの強さ。値が大きいほど強い。
+                カードの強さ自体は、Jが最弱になる。
         """
         self.category = category
         self.strength = strength
+        self.strength2 = strength2
     
     @classmethod
     def fromName(cls, target_name: str) -> "Card":

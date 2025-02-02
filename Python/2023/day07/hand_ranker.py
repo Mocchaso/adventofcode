@@ -33,3 +33,18 @@ class HandRankerImpl(HandRanker):
             hand.rank = self.hand_evaluator.evaluate(hand)
         
         return sorted(hands, key=lambda hand: (hand.rank.strength, *(card.strength for card in hand.cards)))
+
+
+class HandRankerImpl2(HandRanker):
+    """手札間の役の強さでランク付けを行うクラスの、問題2用の実装クラス。
+    """
+
+    def rank_hands(self, hands: list[Hand]) -> list[Hand]:
+        """各手札間の役の強さでランク付けを行い、ソートする。
+        カード自体の強さのルールが変わる。
+        """
+        for hand in hands:
+            hand.rank = self.hand_evaluator.evaluate(hand)
+            # print(f"{hand} -> {hand.rank}")
+        
+        return sorted(hands, key=lambda hand: (hand.rank.strength, *(card.strength2 for card in hand.cards)))
